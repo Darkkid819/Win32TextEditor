@@ -1,11 +1,13 @@
 #include "editor.h"
 
 void Editor::initialize(HWND parent) {
-    editControl = CreateWindowEx(0, "EDIT", "",
-        WS_CHILD | WS_VISIBLE | WS_VSCROLL |
-        ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL,
-        0, 0, 800, 600,
-        parent, (HMENU)1,
+    editControl = CreateWindowEx(
+        0,                    // Optional window styles
+        L"EDIT",              // Control class name (as wide string)
+        L"",                  // Window text (empty string)
+        WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL,
+        0, 0, 800, 600,       // Position and size
+        parent, (HMENU)1,     // Parent window and control ID
         GetModuleHandle(NULL), NULL);
 }
 
@@ -19,19 +21,19 @@ void Editor::saveFile(const std::string& path) {
 }
 
 void Editor::clear() {
-    SetWindowText(editControl, "");
+    SetWindowText(editControl, L"");
 }
 
-std::string Editor::getText() {
+std::wstring Editor::getText() {
     int length = GetWindowTextLength(editControl);
-    char* buffer = new char[length + 1];
+    wchar_t* buffer = new wchar_t[length + 1];  // Use wchar_t buffer
     GetWindowText(editControl, buffer, length + 1);
-    std::string text(buffer);
+    std::wstring text(buffer);  // Convert buffer to wstring
     delete[] buffer;
     return text;
 }
 
-void Editor::setText(const std::string& text) {
+void Editor::setText(const std::wstring& text) {
     SetWindowText(editControl, text.c_str());
 }
 

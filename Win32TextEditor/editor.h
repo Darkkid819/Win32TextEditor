@@ -8,8 +8,8 @@ public:
     void loadFile(const std::string& path);
     void saveFile(const std::string& path);
     void clear();
-    std::string getText();
-    void setText(const std::string& text);
+    std::wstring getText();
+    void setText(const std::wstring& text);
     void resize(const RECT& rect);
 
 private:

@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "editor.h"
 #include "menu.h"
+#include "resource.h"
 
 class App {
 public:

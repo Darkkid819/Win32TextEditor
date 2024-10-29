@@ -4,13 +4,10 @@
 void initApp();
 void runEventLoop();
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     initApp();
-
     App::getInstance().createMainWindow(hInstance, nCmdShow);
-
     runEventLoop();
-
     return 0;
 }
 
@@ -19,9 +16,13 @@ void initApp() {
 }
 
 void runEventLoop() {
-    MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0)) {
+    MSG msg = { 0 };
+    while (GetMessage(&msg, NULL, 0, 0) > 0) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
+    }
+
+    if (msg.message != WM_QUIT) {
+        MessageBox(NULL, L"Unexpected Message Loop Error!", L"Error", MB_ICONEXCLAMATION | MB_OK);
     }
 }
