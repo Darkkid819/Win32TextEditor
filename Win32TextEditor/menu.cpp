@@ -57,34 +57,49 @@ void Menu::initialize(HWND hwnd) {
 
 void Menu::handleMenuCommand(WPARAM wParam) {
     App& app = App::getInstance();
+    Editor& editor = app.getEditor();
 
     switch (LOWORD(wParam)) {
+    // File Menu
     case ID_FILE_NEW:
-        app.getEditor().clear();
+        editor.clear();
         break;
 
-    // File Menu
     case ID_FILE_OPEN: {
         std::wstring path = openFileDialog(app.getMainWindow());
         if (!path.empty()) {
             std::string content = readFile(path);
-            app.getEditor().setText(std::wstring(content.begin(), content.end()));
+            editor.setText(std::wstring(content.begin(), content.end()));
+            editor.setCurrentFilePath(path); 
         }
         break;
     }
-    case ID_FILE_SAVE: { 
-        std::wstring path = saveFileDialog(app.getMainWindow());
+
+    case ID_FILE_SAVE: {
+        std::wstring path = editor.getCurrentFilePath();
+        if (path.empty()) {
+            path = saveFileDialog(app.getMainWindow());
+            editor.setCurrentFilePath(path);
+        }
         if (!path.empty()) {
-            std::wstring content = app.getEditor().getText();
+            std::wstring content = editor.getText();
             writeFile(path, std::string(content.begin(), content.end()));
         }
         break;
     }
 
-    case ID_FILE_SAVE_AS:
+    case ID_FILE_SAVE_AS: {
+        std::wstring path = saveFileDialog(app.getMainWindow());
+        if (!path.empty()) {
+            std::wstring content = editor.getText();
+            writeFile(path, std::string(content.begin(), content.end()));
+            editor.setCurrentFilePath(path); 
+        }
         break;
+    }
 
     case ID_FILE_CLOSE:
+        editor.clear();
         break;
 
     case ID_FILE_EXIT:

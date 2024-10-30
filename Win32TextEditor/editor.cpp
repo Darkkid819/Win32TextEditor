@@ -14,6 +14,7 @@ void Editor::initialize(HWND parent) {
 
 void Editor::clear() {
     SetWindowText(editControl, L"");
+    currentFilePath.clear();
 }
 
 std::wstring Editor::getText() {
@@ -31,4 +32,12 @@ void Editor::setText(const std::wstring& text) {
 
 void Editor::resize(const RECT& rect) {
     SetWindowPos(editControl, NULL, 0, 0, rect.right, rect.bottom, SWP_NOZORDER);
+}
+
+std::wstring Editor::getCurrentFilePath() const {
+    return currentFilePath;
+}
+
+void Editor::setCurrentFilePath(const std::wstring& path) {
+    currentFilePath = path;
 }

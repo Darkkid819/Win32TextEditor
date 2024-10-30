@@ -140,7 +140,6 @@
     <ClCompile Include="io.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
-    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app.h" />
@@ -148,7 +147,6 @@
     <ClInclude Include="menu.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

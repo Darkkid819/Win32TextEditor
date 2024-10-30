@@ -9,8 +9,10 @@ public:
     std::wstring getText();
     void setText(const std::wstring& text);
     void resize(const RECT& rect);
+    std::wstring getCurrentFilePath() const;
+    void setCurrentFilePath(const std::wstring& path);
 
 private:
     HWND editControl;
-    std::string currentFilePath;
+    std::wstring currentFilePath;
 };
