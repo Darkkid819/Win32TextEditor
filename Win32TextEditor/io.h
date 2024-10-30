@@ -1,7 +1,8 @@
 #pragma once
+#include <windows.h>
 #include <string>
 
-std::string openFileDialog();
-std::string saveFileDialog();
-std::string readFile(const std::string& path);
-void writeFile(const std::string& path, const std::string& content);
+std::wstring openFileDialog(HWND owner);
+std::wstring saveFileDialog(HWND owner);
+std::string readFile(const std::wstring& path);
+void writeFile(const std::wstring& path, const std::string& content);

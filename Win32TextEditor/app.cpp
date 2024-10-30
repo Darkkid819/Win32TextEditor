@@ -52,6 +52,16 @@ LRESULT CALLBACK App::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM 
         getInstance().resizeComponents();
         return 0;
 
+    case WM_COMMAND: {
+        int controlID = LOWORD(wParam);
+        HWND controlHandle = (HWND)lParam;
+
+        if (controlHandle == NULL) {
+            getInstance().menu.handleMenuCommand(wParam);
+        }
+        return 0;
+    }
+
     case WM_CLOSE:
         if (MessageBox(hwnd, L"Are you sure you want to quit?", L"Exit", MB_OKCANCEL) == IDOK) {
             DestroyWindow(hwnd);
@@ -59,11 +69,11 @@ LRESULT CALLBACK App::messageHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM 
         return 0;
 
     case WM_DESTROY:
-        PostQuitMessage(0); 
+        PostQuitMessage(0);
         return 0;
     }
 
-    return DefWindowProc(hwnd, msg, wParam, lParam);  // Default handling for unprocessed messages
+    return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 
